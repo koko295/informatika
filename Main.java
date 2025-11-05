@@ -29,5 +29,31 @@ public class Main {
 
         Car[] toyotas = getCarByBrend(mass, "Toyota");
         System.out.println("Найдено Toyota: " + toyotas.length);
+    public static Car[] getCarByBrendAndYearOperational(Car[] cars, String brend, int years) {
+        int cyear = java.time.Year.now().getValue();
+
+        int count = 0;
+        for (int i = 0; i < cars.length; i++) {
+            int carAge = cyear - cars[i].getYear();
+            if (cars[i].getBrand().equals(brend) && carAge > years) count++;
+        }
+        Car[] result = new Car[count];
+        int in = 0;
+        for (int i = 0; i < cars.length; i++) {
+            int carAge = cyear - cars[i].getYear();
+            if (cars[i].getBrand().equals(brend) && carAge > years) {
+                result[in++] = cars[i];
+            }
+        }
+        return result;
+    }
+        Car[] oldToyotas = getCarByBrendAndYearOperational(mass, "Toyota", 3);
+        System.out.println("Toyota старше 3 лет: " + oldToyotas.length);
+
+        Car[] oldHondas = getCarByBrendAndYearOperational(mass, "Honda", 4);
+        System.out.println("Honda старше 4 лет: " + oldHondas.length);
+
+        Car[] oldFords = getCarByBrendAndYearOperational(mass, "Ford", 2);
+        System.out.println("Ford старше 2 лет: " + oldFords.length);
     }
 }
